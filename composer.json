@@ -1,14 +1,29 @@
 {
+  "name": "vdekh/php-psr7-framework",
+  "description": "PHP psr-7 framework",
+  "homepage": "https://github.com/vdekh/php-psr7-framework",
+  "type": "framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Victor Dekh",
+      "email": "vicdekh@gmail.com",
+      "role": "Development"
+    }
+  ],
   "config": {
     "sort-packages": true
   },
   "require": {
     "php": ">=7.1.0",
-    "roave/security-advisories": "dev-master"
+    "roave/security-advisories": "dev-master",
+    "psr/http-message": "^1.0",
+    "zendframework/zend-diactoros": "^1.6"
   },
   "autoload": {
     "psr-4": {
-      "Framework\\": "src/Framework/"
+      "Framework\\": "src/Framework/",
+      "Tests\\": "tests/"
     }
   },
   "require-dev": {

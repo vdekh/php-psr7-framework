@@ -1,27 +1,24 @@
 <?php
 
-
-/*function getLang(Request $request, $default) {
-    return
-        !empty($request->getQueryParams()['lang']) ? $request->getQueryParams()['lang'] :
-            (!empty($request->cookie()['lang']) ? $request->cookie()['lang'] :
-                (!empty($request->getSession()['lang']) ? $request->getSession()['lang'] :
-                    (!empty($request->getServer()['HTTP_ACCEPT_LANGUAGE']) ? substr($request->getServer()['lang'], 0, 2) : $default)));
-}
-session_start();
-*/
-
-use Framework\Http\Request;
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\SapiEmitter;
+use Zend\Diactoros\ServerRequestFactory;
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
 
 ### Initialization
 
-$request = new Request;
+$request = ServerRequestFactory::fromGlobals();
 
 ### Action
 
 $name = $request->getQueryParams()['name'] ?? 'Guest';
-header('X-Developer: vdekh');
-echo 'Hello, ' . $name . '!';
+
+$response = (new HtmlResponse('Hello, ' . $name . '!'))
+    ->withHeader('X-Developer', 'vdekh');
+
+### Sending
+
+$emitter = new SapiEmitter();
+$emitter->emit($response);
